@@ -63,9 +63,7 @@ class OpenAILanguageModel(AbstractLanguageModel):
             raise ValueError("Invalid strategy. Choose 'cot' or 'propose'")
         
         return thoughts
-    
-
-    def evaluate_states(self, states):
+   
         if self.evaluation_strategy == 'value':
             state_values = {}
             for state in states:
@@ -87,7 +85,6 @@ class OpenAILanguageModel(AbstractLanguageModel):
             states_text = '\n'.join([' '.join(state) for state in states])
             prompt = f"Vote for the best state:\n{states_text}\n[Vote]"
             response = openai.Completion.create(
-                engine="davinci-codex",
                 prompt=prompt,
                 n=1,
                 max_tokens=50,
